@@ -9,6 +9,10 @@ import numpy as np
 import pandas as pd
 import timeit
 
+#import the classes for the functions
+from Arrhenius import Arrhenius
+from Velocity_Rxn import Velocity_Rxn
+
 start = timeit.default_timer()
 sns.set()
 
@@ -35,31 +39,8 @@ R = 0.008314  # [KJ/mol*K] Constant ideal gas
 T_r = 140 + 273.15  # [K] Temperature of reference in Arrhenius expression
 X_ = 0.95  # Conversion percentage
 
-
-class Arrhenius:
-
-    def K1_H(self, T, T_r, E_1, R):
-        K1 = 0.340 * np.exp((-E_1 / R) * ((1 / T) - (1 / T_r)))
-        return K1
-
-    def K2_H(self, T, T_r, E_2, R):
-        K2 = 0.117 * np.exp((-E_2 / R) * ((1 / T) - (1 / T_r)))
-        return K2
-
-
-class Velocity_Rxn:
-
-    def r_1(self, K1_H, C_HMF_o, Theta_H2SO4, X):
-        r_1 = K1_H * ((C_HMF_o * (1 - X)) ** 0.88) * (Theta_H2SO4 * C_HMF_o) ** 1.38
-        return r_1
-
-    def r_2(self, K2_H, C_HMF_o, Theta_H2SO4, X):
-        r_1 = K2_H * ((C_HMF_o * (1 - X)) ** 1.23) * (Theta_H2SO4 * C_HMF_o) ** 1.09
-        return r_1
-
-
-Arrh = Arrhenius()
-Vel_r = Velocity_Rxn()
+Arrh = Arrhenius.Arrhenius()
+Vel_r = Velocity_Rxn.Velocity_Rxn()
 
 # lists of Temperatures
 T_ = np.arange(98, 182, 2)  # [C]
