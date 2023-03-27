@@ -88,9 +88,7 @@ class set_Reactor:
     # Coeficiente de transferencia de masa:
     K = 9.91496e-2  # [m3/kg cat*s]  # ms^-1
 
-
 Reactor = set_Reactor()
-
 
 class set_Rate:
     # set reaction rate law parameters
@@ -143,9 +141,7 @@ class set_Rate:
     # Inhibition Parameter Initial
     inh_0 = (1 + (K_ads_co2 * Reactor.p_A0) + np.sqrt(K_ads_h2 * Reactor.p_B0)) ** 2
 
-
 Rate = set_Rate()
-
 
 class Estequiometria():
     __metaclass__ = Reactor
@@ -178,36 +174,6 @@ class Estequiometria():
     Eps = sigma * Reactor.y_co2_o
 
 
-class set_initial_state_batch:
-    __metaclass__ = Rate
-    __metaclass__ = Reactor
-    x_0 = np.empty(9)  # allocate memory
-    x_0[0] = Reactor.C_A0  # molar concentration A
-    x_0[1] = Reactor.C_B0  # molar concentration B
-    x_0[2] = np.finfo(float).eps  # molar concentration C
-    x_0[3] = np.finfo(float).eps  # molar concentration D
-    x_0[4] = np.finfo(float).eps  # molar concentration E
-    x_0[5] = np.finfo(float).eps  # molar concentration F
-    x_0[6] = np.finfo(float).eps  # (Rate.k_eq_1 * (Reactor.p_A0 * (Reactor.p_B0 ** 2)) / Reactor.p_B0) / Rate.inh_0
-    x_0[7] = np.finfo(float).eps  # (Rate.k_eq_2 * (Reactor.p_A0 * Reactor.p_B0) / np.sqrt(Reactor.p_B0)) / Rate.inh_0
-    x_0[8] = np.finfo(float).eps  # (Rate.k_eq_3 * (np.sqrt(Reactor.p_A0 * Reactor.p_B0))) / Rate.inh_0
-    # x_0[6] = 0  # conversion inicial
-
-
-class set_initial_state_flux:
-    __metaclass__ = Rate
-    __metaclass__ = Reactor
-    x_0 = np.empty(9)  # allocate memory
-    x_0[0] = Reactor.F_A0  # molar flow rate of A
-    x_0[1] = Reactor.F_B0  # molar flow rate of B
-    x_0[2] = np.finfo(float).eps  # molar flow rate of C
-    x_0[3] = np.finfo(float).eps  # molar flow rate of D
-    x_0[4] = np.finfo(float).eps  # molar flow rate of E
-    x_0[5] = np.finfo(float).eps  # molar flow rate of F
-    x_0[6] = np.finfo(float).eps  # (Rate.k_eq_1 * (Reactor.p_A0 * (Reactor.p_B0 ** 2)) / Reactor.p_B0) / Rate.inh_0
-    x_0[7] = np.finfo(float).eps  # (Rate.k_eq_2 * (Reactor.p_A0 * Reactor.p_B0) / np.sqrt(Reactor.p_B0)) / Rate.inh_0
-    x_0[8] = np.finfo(float).eps  # (Rate.k_eq_3 * (np.sqrt(Reactor.p_A0 * Reactor.p_B0))) / Rate.inh_0
-
 
 class set_initial_state_flux_drop:
     __metaclass__ = Rate
@@ -226,14 +192,3 @@ class set_initial_state_flux_drop:
 
     # Now we can add other initial states and save them in a unique Class
 
-    x_1 = np.empty(10)  # allocate memory
-    x_1[0] = Reactor.F_A0  # molar flow rate of A
-    x_1[1] = Reactor.F_B0  # molar flow rate of B
-    x_1[2] = 0.1  # molar flow rate of C
-    x_1[3] = 0.1  # molar flow rate of D
-    x_1[4] = 0.1  # molar flow rate of E
-    x_1[5] = 0.1  # molar flow rate of F
-    x_1[6] = 0.1  # (Rate.k_eq_1 * (Reactor.p_A0 * (Reactor.p_B0 ** 2)) / Reactor.p_B0) / Rate.inh_0
-    x_1[7] = 0.1  # (Rate.k_eq_2 * (Reactor.p_A0 * Reactor.p_B0) / np.sqrt(Reactor.p_B0)) / Rate.inh_0
-    x_1[8] = 0.1  # (Rate.k_eq_3 * (np.sqrt(Reactor.p_A0 * Reactor.p_B0))) / Rate.inh_0
-    x_1[9] = Reactor.P_0  # pressure
